@@ -78,16 +78,18 @@ function saveUser(i) {
                 <label><input type="radio" name="gender" value="Female" ${user.gender === "Female" ? "checked" : ""} /> Female</label>
                 <label><input type="radio" name="gender" value="Other" ${user.gender === "Other" ? "checked" : ""} /> Other</label>
             </td>
-            <td>
-                <select id="city">
-                    <option value="${user.city || ""}">${user.city || "Select City"}</option>
-                    <option value="New York">New York</option>
-                    <option value="Los Angeles">Los Angeles</option>
-                    <option value="Chicago">Chicago</option>s
-                    <option value="Houston">Houston</option>
-                    <option value="Miami">Miami</option>
-                </select>
-            </td>
+                  <td><select id="city" name="city" required>
+            <option value="New York" ${user?.city === "New York" ? "selected" : ""
+        }>New York</option>
+            <option value="Los Angeles" ${user?.city === "Los Angeles" ? "selected" : ""
+        }>Los Angeles</option>
+            <option value="Chicago" ${user?.city === "Chicago" ? "selected" : ""
+        }>Chicago</option>
+            <option value="Houston" ${user?.city === "Houston" ? "selected" : ""
+        }>Houston</option>
+            <option value="Miami" ${user?.city === "Miami" ? "selected" : ""
+        }>Miami</option>
+          </select></td>
             <td><textarea id="hobbies">${user.hobbies || ""}</textarea></td>
             <td><div class="skill-item">
             <input type="checkbox" id="skill1" ${user?.skills?.includes("HTML") === true ? "checked" : ""

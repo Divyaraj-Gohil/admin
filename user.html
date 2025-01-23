@@ -169,12 +169,21 @@
           </div>
                  </td>
                   <td><select id="city" name="city" required>
-            <option value="${user.city}">${user.city}</option>
-            <option value="New York">New York</option>
-            <option value="Los Angeles">Los Angeles</option>
-            <option value="Chicago">Chicago</option>
-            <option value="Houston">Houston</option>
-            <option value="Miami">Miami</option>
+            <option value="New York" ${
+              user?.city === "New York" ? "selected" : ""
+            }>New York</option>
+            <option value="Los Angeles" ${
+              user?.city === "Los Angeles" ? "selected" : ""
+            }>Los Angeles</option>
+            <option value="Chicago" ${
+              user?.city === "Chicago" ? "selected" : ""
+            }>Chicago</option>
+            <option value="Houston" ${
+              user?.city === "Houston" ? "selected" : ""
+            }>Houston</option>
+            <option value="Miami" ${
+              user?.city === "Miami" ? "selected" : ""
+            }>Miami</option>
           </select></td>
                   <td><textarea id="hobbies" name="hobbies" rows="2">${
                     user?.hobbies
