@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 50px;
+        padding: 0;
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .signup-container {
+        background: #fff;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+      }
+      .signup-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      .form-group input[type="radio"] {
+        width: auto;
+        margin-right: 10px;
+      }
+      .form-group .radio-group {
+        display: flex;
+        align-items: center;
+      }
+      .form-group .radio-group label {
+        margin-right: 15px;
+      }
+      .form-group .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .form-actions {
+        text-align: center;
+      }
+      .form-actions button {
+        padding: 10px 20px;
+        border: none;
+        background: #007bff;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .form-actions button:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup-container">
+      <h2>Signup</h2>
+      <form>
+        <div class="form-group">
+          <label for="firstname">First Name</label>
+          <input type="text" id="firstname" name="firstname" required />
+        </div>
+
+        <div class="form-group">
+          <label for="lastname">Last Name</label>
+          <input type="text" id="lastname" name="lastname" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" required />
+        </div>
+
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob" required />
+        </div>
+
+        <div class="form-group">
+          <label>Gender</label>
+          <div class="radio-group">
+            <label
+              ><input type="radio" name="gender" value="Male" required />
+              Male</label
+            >
+            <label
+              ><input type="radio" name="gender" value="Female" /> Female</label
+            >
+            <label
+              ><input type="radio" name="gender" value="Other" /> Other</label
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="city">City</label>
+          <select id="city" name="city" required>
+            <option value="">Select City</option>
+            <option value="New York">New York</option>
+            <option value="Los Angeles">Los Angeles</option>
+            <option value="Chicago">Chicago</option>
+            <option value="Houston">Houston</option>
+            <option value="Miami">Miami</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="hobbies">Hobbies</label>
+          <textarea id="hobbies" name="hobbies" rows="2"></textarea>
+        </div>
+        <h4>Skills</h4>
+        <div class="skill-container" id="skillContainer">
+          <div class="skill-item">
+            <input type="checkbox" id="skill1" name="skills" value="HTML" />
+            <label for="skill1">HTML</label>
+          </div>
+          <div class="skill-item">
+            <input type="checkbox" id="skill2" name="skills" value="CSS" />
+            <label for="skill2">CSS</label>
+          </div>
+          <div class="skill-item">
+            <input
+              type="checkbox"
+              id="skill3"
+              name="skills"
+              value="JavaScript"
+            />
+            <label for="skill3">JavaScript</label>
+          </div>
+          <div class="skill-item">
+            <input type="checkbox" id="skill4" name="skills" value="Python" />
+            <label for="skill4">Python</label>
+          </div>
+          <div class="skill-item">
+            <input type="checkbox" id="skill5" name="skills" value="Java" />
+            <label for="skill5">Java</label>
+          </div>
+          <div class="skill-item">
+            <input type="checkbox" id="skill6" name="skills" value="C++" />
+            <label for="skill6">C++</label>
+          </div>
+        </div>
+        <hr />
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            required
+          />
+        </div>
+
+        <div class="form-actions">
+          <button type="submit">Sign Up</button>
+        </div>
+      </form>
+    </div>
+    <script src="signup.js"></script>
+  </body>
+</html>

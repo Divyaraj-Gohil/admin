@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welocome Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+      }
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        text-align: center;
+      }
+      input {
+        width: 500px;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .skill-container {
+        display: flex;
+        flex-wrap: wrap; /* Allow skills to wrap to the next line */
+        gap: 10px; /* Spacing between skill items */
+      }
+      .skill-item {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      input[type="checkbox"] {
+        display: none; /* Hide the actual checkbox */
+      }
+      .password-group {
+        margin-top: 1rem;
+      }
+      .form-group label[for="password"] {
+        margin-top: 5px;
+      }
+      .container {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <input type="email" id="email" placeholder="Enter your email" />
+    <button onclick="checkUser()">checkUser</button>
+    <div class="container"></div>
+    <script src="index.js"></script>
+  </body>
+</html>

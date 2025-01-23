@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Data</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background-color: #f4f4f4;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      div[id="centre"] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="centre">
+      <h1>Logged-in User Data</h1>
+    </div>
+    <div id="editdiv">
+      <button onclick="handleEdit()" id="edit">Edit</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Password</th>
+          <th>Date of Birth</th>
+          <th>Gender</th>
+          <th>City</th>
+          <th>Hobbies</th>
+          <th>Skills</th>
+        </tr>
+      </thead>
+      <tbody id="userTableBody">
+        <!-- Rows will be inserted here dynamically -->
+      </tbody>
+    </table>
+
+    <script>
+      const user = JSON.parse(sessionStorage.getItem("loggedInUser")) || [];
+
+      // Populate the table
+      const tableBody = document.getElementById("userTableBody");
+      const div = document.createElement("div");
+      div.id = "centre";
+      const button = document.createElement("button");
+      button.innerText = "Logout";
+      button.id = "logout";
+      button.onclick = () => {
+        sessionStorage.removeItem("loggedInUser");
+        window.location.href = "index.html";
+      };
+      document.body.appendChild(div);
+      div.appendChild(button);
+
+      function loadData() {
+        console.log("loading data");
+
+        if (!user || user === undefined || user.length === 0) {
+          const row = document.createElement("tr");
+          row.innerHTML = `<td colspan="9">No data found</td>`;
+          tableBody.appendChild(row);
+        } else {
+          const row = document.createElement("tr");
+          row.className = "first";
+          row.innerHTML = `
+                  <td>${user?.firstname}</td>
+                  <td>${user?.lastname}</td>
+                  <td>${user?.email}</td>
+                  <td>${user?.phone}</td>
+                  <td>${user?.password}</td>
+                  <td>${user?.dob}</td>
+                  <td>${user?.gender}</td>
+                  <td>${user?.city}</td>
+                  <td>${user?.hobbies}</td>
+                  <td>${user?.skills.join(", ")}</td>
+              `;
+          tableBody.appendChild(row);
+        }
+      }
+      loadData();
+
+      const handleEdit = () => {
+        const row = document.querySelector(".first");
+        row.remove();
+        const editdiv = document.querySelector("#editdiv");
+        const isCancel = document.querySelector("#cancel");
+        if (!isCancel) {
+          const cancel = document.createElement("button");
+          cancel.id = "cancel";
+          cancel.innerText = "Cancel";
+          editdiv.appendChild(cancel);
+          cancel.onclick = () => {
+            editdiv.removeChild(cancel);
+            tableBody.innerHTML = "";
+            loadData();
+          };
+        }
+        if (!user || user === undefined || user.length === 0) {
+          return;
+        } else {
+          const row = document.createElement("tr");
+          row.className = "first";
+          const update = document.createElement("button");
+          update.innerText = "Update";
+          row.innerHTML = `
+                  <td><input id="firstname" value=${user?.firstname}></td>
+                  <td><input id="lastname" value=${user?.lastname}></td>
+                  <td><input id="email" value=${user?.email}></td>
+                  <td><input id="phone" value=${user?.phone}></td>
+                  <td><input id="password" value=${user?.password}></td>
+                  <td><input type="date" id="dob" value="${
+                    user.dob || ""
+                  }" /></td>
+                  <td>
+                       <div class="radio-group">
+                          <label
+                        ><input type="radio" ${
+                          user?.gender === "Male" ? "checked" : ""
+                        } name="gender" value="Male" required />
+              Male</label
+            >
+            <label
+              ><input type="radio" name="gender" ${
+                user?.gender === "Female" ? "checked" : ""
+              } value="Female" /> Female</label
+            >
+            <label
+              ><input type="radio" ${
+                user?.gender === "Other" ? "checked" : ""
+              } name="gender" value="Other" /> Other</label
+            >
+          </div>
+                 </td>
+                  <td><select id="city" name="city" required>
+            <option value="${user.city}">${user.city}</option>
+            <option value="New York">New York</option>
+            <option value="Los Angeles">Los Angeles</option>
+            <option value="Chicago">Chicago</option>
+            <option value="Houston">Houston</option>
+            <option value="Miami">Miami</option>
+          </select></td>
+                  <td><textarea id="hobbies" name="hobbies" rows="2">${
+                    user?.hobbies
+                  }</textarea></td>
+                  <td><div class="skill-item">
+            <input type="checkbox" id="skill1" ${
+              user?.skills?.includes("HTML") === true ? "checked" : ""
+            } name="skills" value="HTML" />
+            <label for="skill1">HTML</label>
+          </div>
+          <div class="skill-item">
+            <input type="checkbox" id="skill2" ${
+              user?.skills?.includes("CSS") === true ? "checked" : ""
+            } name="skills" value="CSS" />
+            <label for="skill2">CSS</label>
+          </div>
+          <div class="skill-item">
+            <input
+              type="checkbox"
+              id="skill3"
+              name="skills"
+              value="JavaScript"
+              ${user?.skills?.includes("JavaScript") === true ? "checked" : ""}
+            />
+            <label for="skill3">JavaScript</label>
+          </div>
+          <div class="skill-item">
+            <input type="checkbox" id="skill4" ${
+              user?.skills?.includes("Python") === true ? "checked" : ""
+            } name="skills" value="Python" />
+            <label for="skill4">Python</label>
+          </div>
+          <div class="skill-item">
+            <input type="checkbox" id="skill5" ${
+              user?.skills?.includes("Java") === true ? "checked" : ""
+            } name="skills" value="Java" />
+            <label for="skill5">Java</label>
+          </div>
+          <div class="skill-item">
+            <input type="checkbox" id="skill6" ${
+              user?.skills?.includes("C++") === true ? "checked" : ""
+            } name="skills" value="C++" />
+            <label for="skill6">C++</label>
+          </div></td>
+              `;
+          tableBody.appendChild(row);
+          row.appendChild(update);
+          update.onclick = () => {
+            updateHandle();
+          };
+        }
+      };
+      function updateHandle() {
+        const firstname = document.getElementById("firstname");
+        const lastname = document.getElementById("lastname");
+        const email = document.getElementById("email");
+        const phone = document.getElementById("phone");
+        const password = document.getElementById("password");
+        const gender = document.getElementsByName("gender");
+        const dob = document.getElementById("dob");
+        const city = document.getElementById("city");
+        const hobbies = document.getElementById("hobbies");
+        const skills = document.getElementsByName("skills");
+
+        const users = localStorage.getItem("signupData")
+          ? JSON.parse(localStorage.getItem("signupData"))
+          : [];
+        const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+        const showError = {};
+
+        if (firstname.value.trim() === "") {
+          showError.firstname = "First name is required.";
+        }
+        if (lastname.value.trim() === "") {
+          showError.lastname = "Last name is required.";
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value)) {
+          showError.email = "Enter a valid email address.";
+        }
+        if (email.value.trim()) {
+          const user = users.find(
+            (u) => u.email === email.value && email.value !== loggedInUser.email
+          );
+          if (user) showError.unique = "Email already exist!";
+        }
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!phoneRegex.test(phone.value)) {
+          showError.phone = "Enter a valid 10-digit phone number.";
+        }
+        const passwordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+        if (!passwordRegex.test(password.value)) {
+          showError.password =
+            "Password should contain [A-Z], [a-z], [0-9] [@$!%*?&]";
+        }
+        const selectedDate = new Date(dob?.value);
+        const today = new Date();
+        if (selectedDate >= today) {
+          showError.dob = "Date of birth must be in the past.";
+        }
+        const selected = Array.from(skills).some((s) => s.checked);
+        if (!selected) {
+          showError.skill = "Please select at least one skill.";
+        }
+        if (Object.keys(showError).length !== 0) {
+          let obj = Object.values(showError);
+          alert(JSON.stringify(obj));
+        } else {
+          const formData = {
+            firstname: firstname.value.trim(),
+            lastname: lastname.value.trim(),
+            email: email.value.trim(),
+            phone: phone.value.trim(),
+            password: password.value,
+            dob: dob.value || loggedInUser.dob,
+            gender:
+              Array.from(gender).find((r) => r.checked)?.value ||
+              loggedInUser.gender,
+            city: city.value,
+            hobbies: hobbies.value || loggedInUser.hobbies,
+            skills: Array.from(skills)
+              .filter((s) => s.checked)
+              .map((s) => s.value),
+          };
+          let index = users.findIndex(
+            (item) => item.email === loggedInUser.email
+          );
+          users.splice(index, 1);
+          users.push(formData);
+          localStorage.setItem("signupData", JSON.stringify(users));
+          sessionStorage.setItem("loggedInUser", JSON.stringify(formData));
+          location.reload();
+        }
+      }
+    </script>
+  </body>
+</html>
